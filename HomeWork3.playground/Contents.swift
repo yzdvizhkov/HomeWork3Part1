@@ -55,8 +55,17 @@ let cart: [ProductInfo] = [
     ------------------------------------------------------
  */
 
-
-
+for index in 0 ..< cart.count {
+    let productInfo = cart[index]
+    let text = """
+    ------------------- \(index + 1) -------------------
+    Назва товару:\(productInfo.0)
+    Ціна:\(productInfo.1)\(productInfo.2)
+    Сокет:\(productInfo.3)
+    Процессор:\(productInfo.4)
+    """
+    print(text)
+}
 
 
 /*
@@ -76,8 +85,17 @@ let cart: [ProductInfo] = [
     ------------------------------------------------------
  */
 
+var iterator = 0
 
-
+for product in cart {
+    iterator += 1
+    let text = """
+    -------------------\(iterator)-------------------
+    Назва товару:\(product.0)
+    Процессор:\(product.4)
+    """
+    print(text)
+}
 
 
 /*
@@ -96,9 +114,16 @@ let cart: [ProductInfo] = [
     Ціна: 1717.00 ₴
     ------------------------------------------------------
  */
-
-
-
+iterator = 1
+while iterator < cart.count{
+    let product = cart[iterator]
+    let text = """
+    -------------------\(iterator)-------------------
+    Назва товару:\(product.0)
+    Ціна:\(product.1)\(product.2)
+    """
+    iterator+=1
+}
 
 
 /*
@@ -118,8 +143,18 @@ let cart: [ProductInfo] = [
     ------------------------------------------------------
  */
 
+iterator = 1
 
-
+repeat {
+    let product = cart[iterator]
+    let text = """
+    -------------------\(iterator)-------------------
+    Назва товару:\(product.0)
+    Ціна:\(product.1)\(product.2)
+    """
+    iterator+=1
+}
+while iterator < cart.count
 
 
 /*
@@ -151,8 +186,18 @@ let cart: [ProductInfo] = [
     ------------------------------------------------------
  */
 
-
-
+for index in 0 ..< cart.count {
+    let product = cart[index]
+    if product.1 < 5000.00 || product.3 == "s1151"{
+        let text = """
+    ------------------- \(index + 1) -------------------
+    Назва товару:\(product.0)
+    Ціна:\(product.1)\(product.2)
+    Сокет:\(product.3)
+    """
+        print(text)
+    }
+}
 
 
 /*
@@ -199,6 +244,22 @@ let cart: [ProductInfo] = [
     
  */
 
+for index in 0 ..< cart.count {
+    let product = cart[index]
+    let processorStringValue = product.4
+    let text = """
+    ------------------- \(index + 1) -------------------
+    Назва товару:\(product.0)
+    Ціна:\(product.1)\(product.2) for processor \(processorStringValue)
+    """
+    
+    switch processorStringValue {
+    case "Intel", "AMD":
+        print(text)
+    default:
+        print("")
+    }
+}
 
 
 /*
