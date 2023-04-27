@@ -114,14 +114,15 @@ for product in cart {
     Ціна: 1717.00 ₴
     ------------------------------------------------------
  */
-iterator = 1
+iterator = 0
 while iterator < cart.count{
     let product = cart[iterator]
     let text = """
-    -------------------\(iterator)-------------------
+    -------------------\(iterator+1)-------------------
     Назва товару:\(product.0)
     Ціна:\(product.1)\(product.2)
     """
+    print(text)
     iterator+=1
 }
 
@@ -143,15 +144,16 @@ while iterator < cart.count{
     ------------------------------------------------------
  */
 
-iterator = 1
+iterator = 0
 
 repeat {
     let product = cart[iterator]
     let text = """
-    -------------------\(iterator)-------------------
+    -------------------\(iterator+1)-------------------
     Назва товару:\(product.0)
-    Ціна:\(product.1)\(product.2)
+    Сокет:\(product.3)
     """
+    print(text)
     iterator+=1
 }
 while iterator < cart.count
@@ -275,10 +277,10 @@ for index in 0 ..< cart.count {
  ! Для вирішення наступною задачі використовуйте будь-які цикли та інструменти.
  
  Зарезервувати (описати) функцію без параметрів,
- яка виведе інформацю про товари з кошика тільки з процесором Inetel
+ яка виведе інформацю про товари з кошика тільки з процесором Intel
  у консоль у наступному форматі:
  
- ------------------- Inetel -------------------------------
+ ------------------- Intel -------------------------------
  1 Назва товару: значення товару
  2 Назва товару: значення товару
  3 Назва товару: значення товару
@@ -287,7 +289,7 @@ for index in 0 ..< cart.count {
  ------------------------------------------------------
  
  наприклад:
-    ------------------- Inetel -------------------------------
+    ------------------- Intel -------------------------------
     1 Назва товару: ASRock H310CV-HD
     2 Назва товару: Asus Prime H310M-E R2.0
     ...
@@ -298,8 +300,15 @@ for index in 0 ..< cart.count {
  
  */
 
-
-
+func displayIntel(){
+    print("------------------- Intel -------------------")
+    for product in cart {
+      if product.4 == "Intel" {
+          print("Назва товару:\(product.0)")
+      }
+    }
+}
+displayIntel()
 
 /*
  
@@ -330,10 +339,16 @@ for index in 0 ..< cart.count {
  
  */
 
-
-
-
-
+func displayMinPrice(maxPrice: Double){
+    print("------------------- Товари з ціною менше \(maxPrice) -------------------")
+    for product in cart {
+      if product.1 < maxPrice {
+        let text = "Назва товару:\(product.0)"
+        print(text)
+      }
+    }
+}
+displayMinPrice(maxPrice: 4500.00)
 
 /*
  
@@ -357,8 +372,23 @@ for index in 0 ..< cart.count {
  
  */
 
-
-
+func displayProcessorWithMaxPrixe(processor: String) -> ProductInfo {
+    print("------------------- Найдорожчий товар за процесором \(processor) -------------------")
+    var currentProduct: ProductInfo = cart[0]
+    for product in cart {
+        if(product.4 == processor){
+            var price = product.1
+            if currentProduct.1 < price {
+                currentProduct.1 = product.1
+            }
+            
+        }
+    }
+    print(currentProduct.1)
+    return currentProduct
+}
+let intelMaxPrice = displayProcessorWithMaxPrixe(processor: "Intel")
+let amdMaxPrice = displayProcessorWithMaxPrixe(processor: "AMD")
 
 
 /*
@@ -379,9 +409,11 @@ for index in 0 ..< cart.count {
  
  */
 
-
-
-
+enum ProcessorType: String {
+    case intel = "Intel"
+    case amd = "AMD"
+}
+let enumProcessor = ProcessorType.amd
 
 
 /*
@@ -397,8 +429,12 @@ for index in 0 ..< cart.count {
  
  */
 
-
-
+enum Currency: String {
+    case uah = "UAH"
+    case usd = "USD"
+    case eur = "EUR"
+}
+let enumCurrency = Currency.usd
 
 
 /*
@@ -419,10 +455,13 @@ for index in 0 ..< cart.count {
  створити змінну типу MotherBoard і спробувати поміняти їй інші значення
  
  */
-
-
-
-
+struct MotherBoard {
+    var socet: String
+    var processor: ProcessorType
+}
+var motherBoard: MotherBoard = MotherBoard(socet: "s1151", processor: ProcessorType.intel)
+motherBoard.socet = "sAM4"
+motherBoard.processor = ProcessorType.amd
 
 
 /*
@@ -439,8 +478,22 @@ for index in 0 ..< cart.count {
  створити змінну типу Product і спробувати поміняти їй інші значення
  
  */
+class Product {
+    var name: String
+    var price: Double
+    var currency: Currency
+    var motherBoard: MotherBoard
+    
+    init(name: String, price: Double, currency: Currency, motherBoard: MotherBoard) {
+        self.name = name
+        self.price = price
+        self.currency = currency
+        self.motherBoard = motherBoard
 
-
-
+    }
+}
+let myotherBoard: MotherBoard = MotherBoard(socet: "s1151", processor: ProcessorType.intel)
+var myProduct: Product = Product(name: "ASRock H310CV-HDV", price: 1717.0, currency: Currency.usd, motherBoard: myotherBoard)
+myProduct.motherBoard = MotherBoard(socet: "sAM4", processor: ProcessorType.amd)
 
 
